@@ -1,0 +1,22 @@
+{
+  "name": "docker-setup-helper",
+  "owner": {
+    "name": "Bobby Iliev",
+    "email": "robifis@users.noreply.github.com"
+  },
+  "metadata": {
+    "description": "Beginner-safe Docker setup helper for GitHub repos",
+    "version": "1.2.0"
+  },
+  "plugins": [
+    {
+      "name": "docker-setup-helper",
+      "description": "Help beginners safely set up Docker apps from GitHub repos with staged checks, env setup, ports, health checks, and approval gates.",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/docker-setup-helper"
+      ]
+    }
+  ]
+}

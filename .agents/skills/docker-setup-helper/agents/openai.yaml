@@ -1,0 +1,6 @@
+interface:
+  display_name: "Docker Setup Helper"
+  short_description: "Beginner-safe Docker app setup"
+  default_prompt: "Use $docker-setup-helper to help me deploy this GitHub repo with Docker safely."
+policy:
+  allow_implicit_invocation: true
