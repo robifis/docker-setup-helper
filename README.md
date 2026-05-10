@@ -1,14 +1,13 @@
 # Docker Setup Helper
 
-A single-file assistant workflow for helping beginners set up Docker apps from GitHub repositories.
+Assistant skills for helping beginners set up Docker apps from GitHub repositories.
 
-The main file is [`SKILL.md`](SKILL.md). It is self-contained and can be used as:
+This repo contains two installable skill files:
 
-- a Codex skill,
-- Claude project instructions,
-- or a normal Markdown checklist.
+- [`codex/SKILL.md`](codex/SKILL.md) for Codex.
+- [`claude/SKILL.md`](claude/SKILL.md) for Claude / Claude Code.
 
-The workflow is intentionally staged. It inspects first, explains what it found, asks simple questions when decisions are needed, and proposes file changes before applying anything.
+Both versions follow the same staged workflow: inspect first, explain what was found, ask simple questions when decisions are needed, and propose file changes before applying anything.
 
 ## Quick Start
 
@@ -21,12 +20,12 @@ Use the Docker Setup Helper workflow to help me deploy this GitHub repo:
 Inspect first, explain each stage in beginner-friendly terms, ask before making decisions, and produce a runbook plus proposed patches before changing files or starting containers.
 ```
 
-## Codex Install
+## Install For Codex
 
-Copy this repository folder into your Codex skills directory:
+Run this from any folder:
 
 ```bash
-cp -r docker-setup-helper "$HOME/.codex/skills/docker-setup-helper"
+git clone https://github.com/robifis/docker-setup-helper.git && mkdir -p "$HOME/.codex/skills/docker-setup-helper" && cp docker-setup-helper/codex/SKILL.md "$HOME/.codex/skills/docker-setup-helper/SKILL.md"
 ```
 
 Then invoke it with:
@@ -35,9 +34,37 @@ Then invoke it with:
 Use $docker-setup-helper to help me deploy https://github.com/example/app
 ```
 
-## Claude Use
+## Install For Claude Code
 
-Paste [`SKILL.md`](SKILL.md) into Claude project instructions, or attach it to the project where you want Docker setup help.
+```bash
+git clone https://github.com/robifis/docker-setup-helper.git && mkdir -p "$HOME/.claude/skills/docker-setup-helper" && cp docker-setup-helper/claude/SKILL.md "$HOME/.claude/skills/docker-setup-helper/SKILL.md"
+```
+
+Claude expects the skill folder name to match the `name` field, so the file is copied to:
+
+```bash
+~/.claude/skills/docker-setup-helper/SKILL.md
+```
+
+## Install Both
+
+```bash
+git clone https://github.com/robifis/docker-setup-helper.git && mkdir -p "$HOME/.codex/skills/docker-setup-helper" "$HOME/.claude/skills/docker-setup-helper" && cp docker-setup-helper/codex/SKILL.md "$HOME/.codex/skills/docker-setup-helper/SKILL.md" && cp docker-setup-helper/claude/SKILL.md "$HOME/.claude/skills/docker-setup-helper/SKILL.md"
+```
+
+## Windows PowerShell Install Both
+
+```powershell
+git clone https://github.com/robifis/docker-setup-helper.git; New-Item -ItemType Directory -Force "$HOME\.codex\skills\docker-setup-helper", "$HOME\.claude\skills\docker-setup-helper"; Copy-Item ".\docker-setup-helper\codex\SKILL.md" "$HOME\.codex\skills\docker-setup-helper\SKILL.md" -Force; Copy-Item ".\docker-setup-helper\claude\SKILL.md" "$HOME\.claude\skills\docker-setup-helper\SKILL.md" -Force
+```
+
+## Claude.ai Upload
+
+For Claude.ai custom skill upload, create a zip whose root contains a `docker-setup-helper/` folder with `SKILL.md` inside:
+
+```bash
+git clone https://github.com/robifis/docker-setup-helper.git && mkdir -p docker-setup-helper-upload/docker-setup-helper && cp docker-setup-helper/claude/SKILL.md docker-setup-helper-upload/docker-setup-helper/SKILL.md && cd docker-setup-helper-upload && zip -r docker-setup-helper-claude.zip docker-setup-helper
+```
 
 ## Safety Defaults
 

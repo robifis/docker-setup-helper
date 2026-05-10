@@ -7,11 +7,7 @@ description: Help beginners set up Docker apps from GitHub repositories. Use whe
 
 Use this when someone gives you a GitHub repository and wants help setting it up with Docker. The user may be a beginner. Keep them involved at every stage, explain decisions in simple terms, and do not perform risky actions without approval.
 
-This file is intentionally self-contained. It can be used as:
-
-- a Codex `SKILL.md`,
-- Claude project instructions,
-- or a normal Markdown checklist for a human.
+This is the Codex version of the skill. Use Codex tools to inspect files, run read-only checks, draft patches, and apply changes only after explicit user approval.
 
 ## Ground Rules
 
