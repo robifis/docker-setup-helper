@@ -1,36 +1,37 @@
-# 🐳 Docker Setup Helper
+# 🐳 Docker Deployment Engine
 
-Empower your AI assistant to guide beginners through the process of deploying Dockerized apps from GitHub repositories safely and predictably.
+Transform your AI assistant into a professional DevOps engineer. The **Docker Deployment Engine** is a set of advanced Assistant Skills (for Claude Code and OpenAI Codex) that automate the complex parts of Docker deployment while keeping the user in full control.
 
-This repository provides a set of **Assistant Skills** (for Claude Code and OpenAI Codex) that transform a "blind" deployment into a structured, staged workflow.
+Unlike simple "helpers," this engine proactively resolves conflicts, self-heals from crashes, and delivers a polished interactive dashboard upon completion.
 
-## 🚀 What it Does
+## 🚀 The "Engine" Workflow
 
-Instead of an AI guessing how to start a container, the `docker-setup-helper` forces a professional deployment lifecycle:
-1. **Repo Inspection**: Analyzes READMEs, Compose files, and `.env.example` to understand the app.
-2. **System Audit**: Checks if Docker is running and ports are available.
-3. **Plain-English Translation**: Explains what `redis`, `postgres`, or `worker` actually do for the user.
-4. **Safety First**: Validates configs using `docker compose config` and uses a mandatory safety checklist.
-5. **Structured Runbook**: Generates a clear, step-by-step deployment plan.
-6. **Starter Guide**: Creates a `summary.md` upon success with access URLs and default login credentials.
+The tool moves through a high-precision deployment lifecycle:
+
+1. **Repo Deep-Scan**: Analyzes documentation, compose files, and manifests to map the app architecture.
+2. **System Audit**: Verifies Docker health and proactively scans for host port conflicts.
+3. **Auto-Resolution**: Instead of just warning about busy ports, it automatically proposes the nearest available alternatives.
+4. **Secret Intelligence**: Generates secure random strings (Base32/Base64) for missing local secrets and guides users through required credentials.
+5. **Validation Gate**: Every proposal is verified via `docker compose config` before the user is asked to execute.
+6. **Self-Healing Loop**: If a container fails, the engine reads the logs, diagnoses the root cause (e.g., permission issues, DB timeouts), and proposes a targeted fix.
+7. **Interactive Dashboard**: replaces static summaries with a `dashboard.html` featuring one-click access, a credential vault, and a quick-start command guide.
 
 ---
 
 ## 🛠️ Installation
 
 ### Claude Code (CLI)
-Install as a personal skill:
-```bash
-git clone https://github.com/robifis/docker-setup-helper.git && mkdir -p "$HOME/.claude/skills" && cp -R docker-setup-helper/skills/docker-setup-helper "$HOME/.claude/skills/"
-```
-**Or via Plugin Marketplace:**
+**via Plugin Marketplace (Recommended):**
 ```text
 /plugin marketplace add robifis/docker-setup-helper
 /plugin install docker-setup-helper@docker-setup-helper
 ```
+**Manual Installation:**
+```bash
+git clone https://github.com/robifis/docker-setup-helper.git && mkdir -p "$HOME/.claude/skills" && cp -R docker-setup-helper/skills/docker-setup-helper "$HOME/.claude/skills/"
+```
 
 ### OpenAI Codex
-Install as a user-level skill:
 ```bash
 git clone https://github.com/robifis/docker-setup-helper.git && mkdir -p "$HOME/.agents/skills" && cp -R docker-setup-helper/.agents/skills/docker-setup-helper "$HOME/.agents/skills/"
 ```
@@ -47,17 +48,16 @@ Create a zip where the root contains a `docker-setup-helper/` folder with `SKILL
 
 ## 📖 How to Use
 
-Once installed, simply tell your assistant:
+Once installed, give your assistant a clear directive:
 
-> "Use the **Docker Setup Helper** to help me deploy this repository: `https://github.com/username/repo`"
+> "Use the **Docker Deployment Engine** to help me deploy this repository: `https://github.com/username/repo`"
 
-The assistant will then guide you through the stages, from initial inspection to the final `summary.md` starter guide.
+The engine will then lead you through the audit, resolution, and deployment phases, ending with your interactive `dashboard.html`.
 
-## 🛡️ Safety Guarantees
+## 🛡️ Safety & Reliability Guarantees
 
-The skill is hard-coded to follow these safety defaults:
-- ✅ **No Magic**: Every file change and command is proposed and approved by the user.
-- ✅ **Config Validation**: Always runs `docker compose config` before execution.
-- ✅ **Data Protection**: Never overwrites existing `.env` files.
-- ✅ **Zero Invention**: Never guesses API keys or secrets; identifies them as `USER_REQUIRED`.
-- ✅ **Non-Destructive**: Never deletes containers, images, or volumes unless explicitly requested.
+- ✅ **Human-in-the-Loop**: No file is edited and no container is started without explicit user approval.
+- ✅ **Syntactic Certainty**: All compose files are validated via `docker compose config` before deployment.
+- ✅ **Data Integrity**: Never overwrites existing `.env` files; preserves existing values.
+- ✅ **Credential Safety**: Never guesses production secrets; uses secure generation for local-only values.
+- ✅ **Non-Destructive**: Never deletes images, volumes, or networks unless specifically requested.
