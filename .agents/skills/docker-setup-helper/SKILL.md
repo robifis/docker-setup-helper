@@ -19,6 +19,8 @@ This is the Codex version of the skill. Use Codex tools to inspect files, run re
 - Never invent external credentials such as API keys, SMTP passwords, OAuth secrets, or cloud tokens.
 - Generate local-only secrets only after explaining what they are for.
 - Treat the repo docs as the source of truth, but call out unsafe or confusing instructions.
+- **Validation first**: Always verify the final `docker-compose.yml` configuration using `docker compose config` before suggesting the user run it.
+- **Safety Checklist**: Before execution, explicitly confirm that the config is valid, no critical files are being overwritten, and the user has approved the specific port mapping.
 
 ## Stage 1: Repo Review
 
@@ -180,6 +182,9 @@ Do you want me to apply these file changes now?
 
 Before running startup commands, show the exact commands and what each does.
 
+**Validation Step**:
+Before the final approval, run `docker compose config` (or equivalent read-only check) to ensure the proposed compose file is syntactically correct. Report the result to the user.
+
 Typical command order:
 
 ```bash
@@ -202,32 +207,60 @@ If migrations or seed commands are documented, ask separately:
 The app docs say to run a database migration. This changes the database schema. Do you want to run it now?
 ```
 
+## Stage 9: Post-Deployment Summary (Starter Guide)
+
+Once the app is running and healthy, create a `summary.md` file in the project root. This serves as a beginner's "Cheat Sheet".
+
+Include:
+- **Access URLs**: The exact URL(s) to open the app (e.g., `http://localhost:8080`).
+- **Login Info**: Default admin usernames/passwords discovered during repo review.
+- **Quick Commands**: How to stop, start, and view logs (e.g., `docker compose stop`, `docker compose logs -f`).
+- **Common Pitfalls**: Specific warnings based on the app's requirements (e.g., "If the app is slow, increase Docker memory to 4GB").
+- **Next Steps**: Any manual configuration needed after startup.
+
+Inform the user:
+```text
+I've created a summary.md file for you. It contains your login details and the URLs to access your new app!
+```
+
 ## Final Output Template
 
-End every setup pass with:
+End every setup pass with a structured runbook:
 
 ```markdown
-## What This App Needs
+# Deployment Runbook: [App Name]
 
-## What I Found In The Repo
+## 📋 Prerequisites
+- [ ] Docker installed
+- [ ] Docker Compose plugin available
+- [ ] Memory/Disk space sufficient
 
-## System Check
+## 🔍 What I Found In The Repo
+- Main setup file: `...`
+- Dependencies: `...`
 
-## Environment Variables
+## ⚙️ Environment & Ports
+- Env file created: Yes/No
+- Host Ports: `...`
+- Publicly exposed: Yes/No
 
-## Ports
+## 🛡️ Safety Checklist
+- [ ] `docker compose config` validated
+- [ ] `.env` preserved
+- [ ] Port conflicts resolved
+- [ ] User approved changes
 
-## Health Checks
+## 🚀 Execution Plan
+1. `docker compose pull`
+2. `docker compose up -d`
+3. [Migration/Seed steps]
 
-## Decisions For You
+## 🏁 Verification
+- Expected URL: `...`
+- Health check: `...`
 
-## Proposed File Changes
-
-## Commands To Run
-
-## Expected URL
-
-## Troubleshooting
+## 🛠️ Troubleshooting
+[Common pitfalls based on the repo]
 ```
 
 ## Troubleshooting Prompts
